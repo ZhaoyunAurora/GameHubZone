@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加新游戏 - GameHubZone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#10B981',
+                        accent: '#F59E0B',
+                        dark: '#1F2937',
+                        light: '#F3F4F6'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <a href="../index.html" class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-xl">G</div>
+                        <span class="text-xl font-bold text-dark">GameHubZone</span>
+                    </a>
+                </div>
+                <h1 class="text-xl font-bold">管理面板</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-6">添加新游戏</h2>
+            
+            <form id="addGameForm" class="space-y-4">
+                <div>
+                    <label for="gameId" class="block text-sm font-medium text-gray-700 mb-1">游戏ID</label>
+                    <input type="text" id="gameId" name="gameId" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                    <p class="text-xs text-gray-500 mt-1">仅使用小写字母、数字和连字符，例如: "viking-siege"</p>
+                </div>
+                
+                <div>
+                    <label for="gameName" class="block text-sm font-medium text-gray-700 mb-1">游戏名称</label>
+                    <input type="text" id="gameName" name="gameName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                </div>
+                
+                <div>
+                    <label for="gameCategory" class="block text-sm font-medium text-gray-700 mb-1">游戏分类</label>
+                    <select id="gameCategory" name="gameCategory" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                        <option value="">选择分类...</option>
+                        <option value="action">动作</option>
+                        <option value="adventure">冒险</option>
+                        <option value="arcade">街机</option>
+                        <option value="puzzle">益智</option>
+                        <option value="sports">体育</option>
+                        <option value="strategy">策略</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="gameThumbnail" class="block text-sm font-medium text-gray-700 mb-1">缩略图URL</label>
+                    <input type="text" id="gameThumbnail" name="gameThumbnail" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                    <p class="text-xs text-gray-500 mt-1">例如: "images/games/viking-siege.jpg"</p>
+                </div>
+                
+                <div>
+                    <label for="gameIframeUrl" class="block text-sm font-medium text-gray-700 mb-1">游戏iframe URL</label>
+                    <input type="text" id="gameIframeUrl" name="gameIframeUrl" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                    <p class="text-xs text-gray-500 mt-1">游戏嵌入链接，例如: "https://example.com/games/viking-siege"</p>
+                </div>
+                
+                <div>
+                    <label for="gameDescription" class="block text-sm font-medium text-gray-700 mb-1">游戏描述</label>
+                    <textarea id="gameDescription" name="gameDescription" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required></textarea>
+                </div>
+                
+                <!-- 新增字段：游戏时长 -->
+                <div>
+                    <label for="gamePlayTime" class="block text-sm font-medium text-gray-700 mb-1">游戏时长（分钟）</label>
+                    <input type="number" id="gamePlayTime" name="gamePlayTime" min="1" max="60" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                    <p class="text-xs text-gray-500 mt-1">平均游戏时长，留空则随机生成</p>
+                </div>
+                
+                <!-- 新增字段：游戏控制说明 -->
+                <div>
+                    <label for="gameControls" class="block text-sm font-medium text-gray-700 mb-1">游戏控制说明</label>
+                    <textarea id="gameControls" name="gameControls" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                    <p class="text-xs text-gray-500 mt-1">自定义游戏控制说明，留空则根据游戏类别自动生成</p>
+                </div>
+                
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary/90 transition-colors">添加游戏</button>
+                </div>
+            </form>
+            
+            <div id="message" class="mt-4 hidden"></div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('addGameForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 获取表单数据
+            const gameData = {
+                id: document.getElementById('gameId').value,
+                name: document.getElementById('gameName').value,
+                category: document.getElementById('gameCategory').value,
+                thumbnail: document.getElementById('gameThumbnail').value,
+                iframeUrl: document.getElementById('gameIframeUrl').value,
+                description: document.getElementById('gameDescription').value,
+                // 新增字段
+                playTime: document.getElementById('gamePlayTime').value || null,
+                customControls: document.getElementById('gameControls').value || null
+            };
+            
+            // 显示数据（在实际应用中，这里应该发送到服务器）
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = `
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
+                    <p class="font-bold">游戏数据已收集</p>
+                    <p>在实际应用中，这些数据会被保存到服务器。</p>
+                    <pre class="mt-2 bg-gray-100 p-2 rounded overflow-x-auto">${JSON.stringify(gameData, null, 2)}</pre>
+                    <p class="mt-2">请将此数据添加到您的games.json文件中。</p>
+                </div>
+            `;
+            messageDiv.classList.remove('hidden');
+            
+            // 重置表单
+            this.reset();
+        });
+    </script>
+</body>
+</html>
